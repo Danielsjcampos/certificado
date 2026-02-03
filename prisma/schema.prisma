@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Lead {
+  id              String   @id @default(uuid())
+  name            String
+  document        String
+  certificateType String   @map("certificate_type")
+  phone           String?
+  email           String?
+  origin          String?
+  status          String   @default("Aguardando Documentação")
+  expirationDate  DateTime @map("expiration_date")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("leads")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  name      String
+  role      String   @default("broker")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
