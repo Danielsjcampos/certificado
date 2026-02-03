@@ -119,6 +119,28 @@ app.post('/api/settings', async (req, res) => {
   }
 });
 
+// Update Lead Status (for Kanban)
+app.patch('/api/leads/:id/status', async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const result = await pool.query(
+      'UPDATE leads SET status = $1, updated_at = NOW() WHERE id = $2 RETURNING *',
+      [status, id]
+    );
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Lead não encontrado' });
+    }
+    
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao atualizar status do lead' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

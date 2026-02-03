@@ -137,11 +137,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
             </div>
 
             <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.95] max-w-5xl">
-              Transformamos negócios locais em <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">máquinas globais</span> de aquisição.
+              Certificado Digital <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">100% Online</span> em todo o Brasil.
             </h1>
 
             <p className="text-lg md:text-xl text-slate-400 max-w-2xl font-medium leading-relaxed">
-              Marketing orientado por dados, automação inteligente e funis de alta performance para escalar seu faturamento.
+              Emita ou renove seu certificado por videoconferência. Sem filas, sem deslocamentos e com validade jurídica imediata.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
@@ -151,7 +151,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 group-hover:opacity-80 transition-opacity"></div>
                 <div className="relative flex items-center gap-3">
-                  Quero Escalar Meu Negócio
+                  Emitir Meu Certificado Agora
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
@@ -250,33 +250,33 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <SolutionCard 
               icon={<Target className="w-6 h-6" />}
-              title="Aquisição de Clientes"
-              desc="Estratégias de tráfego pago focadas no seu público ideal, com segmentação global de alta precisão."
+              title="Emissão por Videoconferência"
+              desc="Validação 100% remota com suporte via teleconsulta. Você faz tudo por vídeo, em qualquer lugar do Brasil."
             />
             <SolutionCard 
               icon={<Bot className="w-6 h-6" />}
-              title="Automação Inteligente"
-              desc="Reduza o trabalho manual. Implementamos fluxos que aquecem o lead e preparam para a venda automática."
+              title="Rapidez e Segurança"
+              desc="Processo acelerado com tecnologia de ponta. Receba seu certificado A1 ou A3 com rapidez e segurança total."
             />
             <SolutionCard 
               icon={<Zap className="w-6 h-6" />}
-              title="Funis de Alta Performance"
-              desc="Arquitetura de persuasão testada para transformar visitantes curiosos em clientes pagantes recorrentes."
+              title="Sem Necessidade de Viagem"
+              desc="Economize tempo e combustível. Nossa validação online elimina a necessidade de visitas presenciais."
             />
             <SolutionCard 
               icon={<Users className="w-6 h-6" />}
-              title="CRM Integrado"
-              desc="Domine seus leads. Gestão completa do funil com visibilidade total de cada etapa da jornada do cliente."
+              title="Suporte Especializado"
+              desc="Time de especialistas pronto para guiar você em cada passo, garantindo que sua emissão seja perfeita."
             />
             <SolutionCard 
               icon={<LineChart className="w-6 h-6" />}
-              title="Gestão de Leads"
-              desc="Pontuação de leads (lead scoring) para garantir que seu time comercial foque apenas em quem vai comprar."
+              title="Sincronização com CRM"
+              desc="Controle total do vencimento dos seus certificados com alertas automáticos para você nunca ficar na mão."
             />
             <SolutionCard 
               icon={<TrendingUp className="w-6 h-6" />}
-              title="Estratégias de Escala"
-              desc="Identificamos o que funciona e multiplicamos os resultados. Escalar sem perder a eficiência de custo."
+              title="Certificado para Empresas"
+              desc="Simplificamos a gestão de certificados para contadores e empresas com múltiplos e-CNPJs e e-CPFs."
             />
           </div>
 

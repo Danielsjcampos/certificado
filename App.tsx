@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LandingPage } from './components/LandingPage';
 import { Sidebar } from './components/Sidebar';
+import { KanbanBoard } from './components/KanbanBoard';
 import { Dashboard } from './components/Dashboard';
 import { LeadsManagement } from './components/LeadsManagement';
 import { LeadModal } from './components/LeadModal';
@@ -132,6 +133,8 @@ const App: React.FC = () => {
         return <Dashboard leads={leads} onOpenModal={openNewModal} onEditLead={openEditModal} />;
       case 'leads':
         return <LeadsManagement leads={leads} onOpenModal={openNewModal} onEditLead={openEditModal} />;
+      case 'kanban':
+        return <KanbanBoard leads={leads} onLeadsUpdate={fetchLeads} onEditLead={openEditModal} />;
       case 'renewals':
         const today = new Date();
         const oneYearFromNow = new Date();

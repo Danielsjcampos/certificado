@@ -12,6 +12,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate, onLog
   const menuItems: { label: string, icon: string, view: AppView }[] = [
     { label: 'Visão Geral', icon: '📊', view: 'overview' },
     { label: 'Todos os Leads', icon: '👤', view: 'leads' },
+    { label: 'Fluxo Kanban', icon: '📋', view: 'kanban' },
     { label: 'Renovações Ativas', icon: '📅', view: 'renewals' },
     { label: 'Configurações', icon: '⚙️', view: 'settings' },
   ];

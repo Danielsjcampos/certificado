@@ -6,9 +6,11 @@ export enum CertificateType {
 }
 
 export enum SaleStatus {
+  NEW = 'Novo Lead',
   WAITING_DOCS = 'Aguardando Documentação',
   SCHEDULED = 'Agendado',
-  ISSUED = 'Emitido'
+  ISSUED = 'Emitido',
+  LOST = 'Perdido'
 }
 
 export interface Lead {
@@ -32,4 +34,4 @@ export interface DashboardStats {
   renewalsSoon: number;
 }
 
-export type AppView = 'overview' | 'leads' | 'renewals' | 'settings';
+export type AppView = 'overview' | 'leads' | 'kanban' | 'renewals' | 'settings';
