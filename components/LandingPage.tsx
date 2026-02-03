@@ -1,5 +1,5 @@
-
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { 
@@ -408,6 +408,41 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
         </div>
       </section>
 
+      {/* LEAD CAPTURE SECTION */}
+      <section id="contato" className="py-24 px-6 bg-slate-900/30">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+          <div className="lg:w-1/2 space-y-8">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Fale com um especialista agora.</h2>
+            <p className="text-slate-400 text-lg">Deixe seus dados e nosso time de escala entrará em contato para fazer um diagnóstico gratuito do seu negócio.</p>
+            <div className="space-y-4">
+               <div className="flex items-center gap-4 text-slate-300">
+                  <CheckCircle2 className="w-6 h-6 text-blue-500" />
+                  <span>Diagnóstico personalizado de funil</span>
+               </div>
+               <div className="flex items-center gap-4 text-slate-300">
+                  <CheckCircle2 className="w-6 h-6 text-blue-500" />
+                  <span>Análise de teto de escala de anúncios</span>
+               </div>
+               <div className="flex items-center gap-4 text-slate-300">
+                  <CheckCircle2 className="w-6 h-6 text-blue-500" />
+                  <span>Acesso exclusivo ao Plata CRM</span>
+               </div>
+            </div>
+          </div>
+          
+          <div className="lg:w-1/2 w-full">
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-slate-900 border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl relative"
+            >
+              <LeadCaptureForm />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="py-20 px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
@@ -478,5 +513,106 @@ const SolutionCard: React.FC<{ icon: React.ReactNode, title: string, desc: strin
       <h4 className="text-xl font-bold mb-4 tracking-tight group-hover:text-blue-400 transition-colors">{title}</h4>
       <p className="text-slate-400 leading-relaxed text-sm group-hover:text-slate-300 transition-colors">{desc}</p>
     </div>
+  );
+};
+
+const LeadCaptureForm: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/leads`, {
+        ...formData,
+        origin: 'Landing Page'
+      });
+      setSuccess(true);
+    } catch (err) {
+      console.error('Error submitting lead:', err);
+      alert('Ocorreu um erro ao enviar seus dados. Por favor, tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (success) {
+    return (
+      <div className="text-center py-12 space-y-6">
+        <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto text-emerald-500">
+          <CheckCircle2 className="w-10 h-10" />
+        </div>
+        <h3 className="text-3xl font-bold">Solicitação enviada!</h3>
+        <p className="text-slate-400">Obrigado {formData.name.split(' ')[0]}. Um estrategista entrará em contato em breve.</p>
+        <button 
+          onClick={() => setSuccess(false)}
+          className="text-blue-500 font-bold hover:underline"
+        >
+          Enviar outra solicitação
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="space-y-2">
+        <label className="text-xs font-bold uppercase tracking-widest text-slate-500">Nome Completo</label>
+        <input 
+          required
+          type="text" 
+          placeholder="Ex: Carlos Andrade"
+          className="w-full bg-white/5 border border-white/10 px-6 py-4 rounded-2xl focus:border-blue-500 outline-none transition-all"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        />
+      </div>
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label className="text-xs font-bold uppercase tracking-widest text-slate-500">E-mail Corporativo</label>
+          <input 
+            required
+            type="email" 
+            placeholder="carlos@empresa.com"
+            className="w-full bg-white/5 border border-white/10 px-6 py-4 rounded-2xl focus:border-blue-500 outline-none transition-all"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-bold uppercase tracking-widest text-slate-500">WhatsApp / Celular</label>
+          <input 
+            required
+            type="tel" 
+            placeholder="(11) 99999-9999"
+            className="w-full bg-white/5 border border-white/10 px-6 py-4 rounded-2xl focus:border-blue-500 outline-none transition-all"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          />
+        </div>
+      </div>
+      <button 
+        type="submit"
+        disabled={loading}
+        className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white py-6 rounded-2xl font-bold text-lg transition-all shadow-xl shadow-blue-600/20 flex items-center justify-center gap-3 active:scale-[0.98]"
+      >
+        {loading ? (
+          <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+        ) : (
+          <span className="flex items-center gap-3">
+            Garantir Meu Diagnóstico Gratuito <ArrowRight className="w-5 h-5" />
+          </span>
+        )}
+      </button>
+      <p className="text-center text-[10px] text-slate-500 uppercase tracking-widest">
+        Seus dados estão 100% protegidos e seguros.
+      </p>
+    </form>
   );
 };

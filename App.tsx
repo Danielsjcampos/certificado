@@ -7,6 +7,7 @@ import { Dashboard } from './components/Dashboard';
 import { LeadsManagement } from './components/LeadsManagement';
 import { LeadModal } from './components/LeadModal';
 import { Login } from './components/Login';
+import { Settings } from './components/Settings';
 import { Lead, AppView, CertificateType, SaleStatus } from './types';
 
 // Mock Initial Data
@@ -152,26 +153,7 @@ const App: React.FC = () => {
           </div>
         );
       case 'settings':
-        return (
-          <div className="flex-1 p-12 bg-slate-50">
-            <h1 className="text-2xl font-bold mb-6">Configurações do Sistema</h1>
-            <div className="bg-white p-8 rounded-2xl border border-slate-200 max-w-2xl">
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Nome da Unidade</label>
-                  <input type="text" defaultValue="Matriz São Paulo" className="w-full px-4 py-2 border border-slate-200 rounded-lg bg-slate-50" />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">E-mail de Notificações</label>
-                  <input type="email" defaultValue="crm@certsync.com.br" className="w-full px-4 py-2 border border-slate-200 rounded-lg bg-slate-50" />
-                </div>
-                <div className="pt-4">
-                  <button className="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold">Salvar Alterações</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
+        return <Settings />;
       default:
         return <Dashboard leads={leads} onOpenModal={openNewModal} onEditLead={openEditModal} />;
     }

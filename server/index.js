@@ -62,12 +62,60 @@ app.post('/api/leads', async (req, res) => {
   try {
     const result = await pool.query(
       'INSERT INTO leads (name, document, certificate_type, phone, email, origin, status, expiration_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-      [name, document, certificate_type, phone, email, origin, status, expiration_date]
+      [
+        name, 
+        document || null, 
+        certificate_type || 'OUTRO', 
+        phone || null, 
+        email || null, 
+        origin || 'Landing Page', 
+        status || 'Novo Lead', 
+        expiration_date || null
+      ]
     );
     res.json(result.rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Erro ao criar lead' });
+  }
+});
+
+// Settings Routes
+app.get('/api/settings', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM system_settings WHERE id = 1');
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao buscar configurações' });
+  }
+});
+
+app.post('/api/settings', async (req, res) => {
+  const { 
+    logo_url, icon_url, meta_title, meta_description, schema_markup, 
+    pixel_code, google_tag, google_analytics, client_email, 
+    client_phone, client_address 
+  } = req.body;
+
+  try {
+    const result = await pool.query(`
+      UPDATE system_settings 
+      SET logo_url = $1, icon_url = $2, meta_title = $3, meta_description = $4, 
+          schema_markup = $5, pixel_code = $6, google_tag = $7, 
+          google_analytics = $8, client_email = $9, client_phone = $10, 
+          client_address = $11, updated_at = NOW()
+      WHERE id = 1
+      RETURNING *
+    `, [
+      logo_url, icon_url, meta_title, meta_description, 
+      schema_markup, pixel_code, google_tag, google_analytics, 
+      client_email, client_phone, client_address
+    ]);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao atualizar configurações' });
   }
 });
 
